@@ -7,7 +7,6 @@
 #include<stdio.h>
 #include<time.h>
 #define MAX_PLAYERS 6
-#include"cross_fire_operations.h"
 #include"move_player.h"
 #include"player_capabilities.h"
 #include"changin_player_capabilities.h"
@@ -22,15 +21,27 @@ struct Player
 	int smartness;
 	int strength;
 	int magic_skills;
-	struct slot *place;
+	//struct slot *place;//not sure if this is needed, will come back to it later
 };
 
 int main(void)
 {
-	int row, column, i;
+	int i, j;
+	int row = 7;
+	int column = 7;
 	int board_size = 7;//setting the size of the board.
 
 	//creating the board.
+	int slot_array[row][column];
+	/*need to give a field value to each slot, will assign each one a random number between 0 and 2
+	0 == Level Ground, 1 == City, 2 == Hill*/
+	for (i = 0; i < row; i++)
+	{
+		for (j = 0; j < column; j++)
+		{
+			slot_array[i][j] = rand() % 3;
+		}
+	}
 
 	printf("Please enter the number of players you'd\n");
 	printf("like to enter into the game : \n");
@@ -47,15 +58,8 @@ int main(void)
 	}
 }
 
-void create_board(int board_size, struct Slot **up_left, struct Slot **up_right, struct Slot **down_left, struct Slot **down_right)
-/*Aim of this function is to allocate space in memory for the board, create it
- * and create all the individual slots in it.
- * Also sets up adjacent slots for all slots
- * that have less than 4 other slots adjacent to them.
- */
 
-
-void changing_player_capabilities(struct Player *pplayer)
+void changing_player_capabilities(struct Player *pplayer)//may put this in another header file to keep things simple
 {
 	//function changes the capabilities of the players depending on which slot they
 	//move to, if they choose to move at all.
@@ -107,4 +111,10 @@ void input_player(struct Player *p)
 	scanf("%s", p->name);
 	printf("\nPlayer type : ");
 	scanf("%s", p->player_type);
+}
+
+void player_turn(struct Player *p)
+{
+	//every function needed for a player to make their turn will go in here, and this will cycle through a loop
+	//as long as there are 2 or more players in the game with life points left.
 }
