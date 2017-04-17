@@ -14,16 +14,8 @@ Slot slot_array[MAX_ROWS][MAX_COLUMNS];//creating a 2D slot array
 Player player_array[MAX_PLAYERS];
 int num_of_players = 0;
 
-void eclipse_workaround() {
-	//setvbuf(stdout, NULL, _IONBF, 0);
-	//setvbuf(stderr, NULL, _IONBF, 0);
-	char blah[10];
-	scanf("%s", blah);
-}
-
 int main(void)
 {
-	eclipse_workaround();
 	slot_type_assignment(slot_array);
 	num_of_players = read_num_of_players();
 	read_in_players(player_array, num_of_players);
@@ -53,4 +45,17 @@ void player_turn(Player *p)
 		leave_game(p);
 		return;
 	}
+	printf("\nDo you want to move to another slot?\n");
+	scanf("%s", answer);
+	if (answer[0] == 'Y' || answer[0] == 'y')
+	{
+		move_player_to_new_slot(struct Player *p);
+		return;
+	}
+	printf("\nDo you want to attack another player?\n");
+	scanf("%s", answer);
+	if (answer[0] == 'Y' || answer[0] == 'y')
+	{
+		list_attacks(Player *p, Player *player_array[i], num_of_players);
+		return;
 }
